@@ -180,3 +180,6 @@ public/
   brand/                       favicon, touch icon, social share image
   seed/                        placeholder project images (WebP)
 ```
+=======
+# Codixa-web
+Codixa Tech Web application
