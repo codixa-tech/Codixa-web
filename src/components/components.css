@@ -1,0 +1,106 @@
+/* Shared UI used by both the site and the dashboard */
+
+.img {
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+.img.is-loaded {
+  opacity: 1;
+}
+
+/* Status pill */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 1.75rem;
+  padding-inline: 0.7rem;
+  border-radius: 999px;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  white-space: nowrap;
+  background: #fff;
+  color: var(--c-ink);
+}
+.pill::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  background: currentColor;
+}
+.pill--completed {
+  color: #047857;
+  background: #d1fae5;
+}
+.pill--in_progress {
+  color: var(--c-blue-600);
+  background: #dbeafe;
+}
+.pill--on_hold {
+  color: #b45309;
+  background: #fef3c7;
+}
+.pill--planning {
+  color: var(--c-slate-600);
+  background: var(--c-slate-200);
+}
+.pill--inline {
+  height: 1.6rem;
+}
+
+/* Dialog */
+.dialog {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.5rem, 3vw, 2rem);
+  background: rgba(15, 23, 42, 0.72);
+  backdrop-filter: blur(4px);
+  animation: dlg-fade 0.25s ease both;
+}
+.dialog__box {
+  animation: dlg-in 0.4s var(--ease-out) both;
+}
+@keyframes dlg-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes dlg-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+  }
+}
+
+/* Toasts */
+.toasts {
+  position: fixed;
+  inset-block-end: 1.25rem;
+  inset-inline-end: 1.25rem;
+  z-index: 900;
+  display: grid;
+  gap: 0.5rem;
+}
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.8rem 1.1rem;
+  border-radius: 12px;
+  background: var(--c-ink);
+  color: #fff;
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  box-shadow: 0 12px 32px -12px rgba(15, 23, 42, 0.5);
+  animation: dlg-in 0.35s var(--ease-out) both;
+}
+.toast--ok svg {
+  color: var(--c-cyan);
+}
+.toast--err svg {
+  color: #fca5a5;
+}

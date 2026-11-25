@@ -1,0 +1,23 @@
+<div class="signs">
+  <div class="sign">
+    <p class="sign__head">{% if heading_first %}{{ heading_first }}{% else %}{{ t.provider_sign }}{% endif %}</p>
+    <div class="sign__art">
+      {% if company.signature %}
+        <img class="sign__img" src="{{ company.signature }}" alt="">
+      {% else %}
+        <div class="sign__auto" dir="ltr">{{ company.ceo_en }}</div>
+      {% endif %}
+      {% with stamp_class="stamp--sign" %}{% include "core/pdf/_stamp.html" %}{% endwith %}
+    </div>
+    <p class="sign__line"><span>{{ t.name }}:</span> {{ company.ceo }}</p>
+    <p class="sign__line"><span>{{ t.ceo }} &mdash;</span> {{ company.name }}</p>
+    <p class="sign__line"><span>{{ t.date }}:</span> {{ today }}</p>
+  </div>
+  <div class="sign">
+    <p class="sign__head">{% if heading_second %}{{ heading_second }}{% else %}{{ t.client_sign }}{% endif %}</p>
+    <div class="sign__art sign__art--blank"></div>
+    <p class="sign__line"><span>{{ t.name }}:</span> <span class="dots">..............................................................</span></p>
+    <p class="sign__line"><span>{{ t.signature }}:</span> <span class="dots">..............................................................</span></p>
+    <p class="sign__line"><span>{{ t.date }}:</span> <span class="dots">..............................................................</span></p>
+  </div>
+</div>

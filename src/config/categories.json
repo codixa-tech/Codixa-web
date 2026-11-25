@@ -1,0 +1,984 @@
+{
+  "statuses": [
+    {
+      "key": "planning",
+      "ar": "تخطيط",
+      "en": "Planning",
+      "tone": "slate"
+    },
+    {
+      "key": "in_progress",
+      "ar": "قيد التنفيذ",
+      "en": "In progress",
+      "tone": "blue"
+    },
+    {
+      "key": "on_hold",
+      "ar": "متوقف مؤقتًا",
+      "en": "On hold",
+      "tone": "warn"
+    },
+    {
+      "key": "completed",
+      "ar": "مكتمل",
+      "en": "Completed",
+      "tone": "ok"
+    }
+  ],
+  "categories": [
+    {
+      "key": "web",
+      "kind": "project",
+      "label": {
+        "ar": "مواقع ويب",
+        "en": "Web"
+      },
+      "single": {
+        "ar": "موقع ويب",
+        "en": "Website"
+      },
+      "icon": "Globe",
+      "fields": [
+        {
+          "key": "live_url",
+          "label": {
+            "ar": "رابط الموقع",
+            "en": "Live URL"
+          },
+          "type": "url",
+          "public": true
+        },
+        {
+          "key": "stack",
+          "label": {
+            "ar": "التقنيات المستخدمة",
+            "en": "Tech stack"
+          },
+          "type": "tags",
+          "public": true,
+          "placeholder": "Django, React, PostgreSQL"
+        },
+        {
+          "key": "domain",
+          "label": {
+            "ar": "الدومين",
+            "en": "Domain"
+          },
+          "type": "text"
+        },
+        {
+          "key": "domain_expiry",
+          "label": {
+            "ar": "انتهاء الدومين",
+            "en": "Domain expiry"
+          },
+          "type": "date"
+        },
+        {
+          "key": "ssl_expiry",
+          "label": {
+            "ar": "انتهاء شهادة SSL",
+            "en": "SSL expiry"
+          },
+          "type": "date"
+        },
+        {
+          "key": "repo_url",
+          "label": {
+            "ar": "رابط المستودع",
+            "en": "Repository URL"
+          },
+          "type": "url"
+        },
+        {
+          "key": "server_ip",
+          "label": {
+            "ar": "IP السيرفر",
+            "en": "Server IP"
+          },
+          "type": "text",
+          "secret": true,
+          "placeholder": "203.0.113.10"
+        },
+        {
+          "key": "hosting_provider",
+          "label": {
+            "ar": "مزود الاستضافة",
+            "en": "Hosting provider"
+          },
+          "type": "text",
+          "secret": true
+        },
+        {
+          "key": "host_user",
+          "label": {
+            "ar": "مستخدم السيرفر (root)",
+            "en": "Server user (root)"
+          },
+          "type": "text",
+          "secret": true
+        },
+        {
+          "key": "host_password",
+          "label": {
+            "ar": "كلمة مرور السيرفر",
+            "en": "Server password"
+          },
+          "type": "secret",
+          "secret": true
+        },
+        {
+          "key": "ssh_port",
+          "label": {
+            "ar": "منفذ SSH",
+            "en": "SSH port"
+          },
+          "type": "number",
+          "secret": true,
+          "placeholder": "22"
+        },
+        {
+          "key": "admin_url",
+          "label": {
+            "ar": "رابط لوحة التحكم",
+            "en": "Admin panel URL"
+          },
+          "type": "url",
+          "secret": true
+        },
+        {
+          "key": "admin_user",
+          "label": {
+            "ar": "مستخدم الأدمن",
+            "en": "Admin user"
+          },
+          "type": "text",
+          "secret": true
+        },
+        {
+          "key": "admin_password",
+          "label": {
+            "ar": "كلمة مرور الأدمن",
+            "en": "Admin password"
+          },
+          "type": "secret",
+          "secret": true
+        },
+        {
+          "key": "db_name",
+          "label": {
+            "ar": "قاعدة البيانات",
+            "en": "Database"
+          },
+          "type": "text",
+          "secret": true
+        },
+        {
+          "key": "db_password",
+          "label": {
+            "ar": "كلمة مرور قاعدة البيانات",
+            "en": "Database password"
+          },
+          "type": "secret",
+          "secret": true
+        }
+      ]
+    },
+    {
+      "key": "mobile",
+      "kind": "project",
+      "label": {
+        "ar": "تطبيقات موبايل",
+        "en": "Mobile"
+      },
+      "single": {
+        "ar": "تطبيق موبايل",
+        "en": "Mobile app"
+      },
+      "icon": "Smartphone",
+      "fields": [
+        {
+          "key": "platforms",
+          "label": {
+            "ar": "المنصات",
+            "en": "Platforms"
+          },
+          "type": "multiselect",
+          "public": true,
+          "options": [
+            "Android",
+            "iOS"
+          ]
+        },
+        {
+          "key": "framework",
+          "label": {
+            "ar": "إطار العمل",
+            "en": "Framework"
+          },
+          "type": "select",
+          "public": true,
+          "options": [
+            "Flutter",
+            "React Native",
+            "Kotlin",
+            "Swift",
+            "Expo"
+          ]
+        },
+        {
+          "key": "play_url",
+          "label": {
+            "ar": "رابط Google Play",
+            "en": "Google Play URL"
+          },
+          "type": "url",
+          "public": true
+        },
+        {
+          "key": "appstore_url",
+          "label": {
+            "ar": "رابط App Store",
+            "en": "App Store URL"
+          },
+          "type": "url",
+          "public": true
+        },
+        {
+          "key": "bundle_id",
+          "label": {
+            "ar": "Bundle / Package ID",
+            "en": "Bundle / package ID"
+          },
+          "type": "text"
+        },
+        {
+          "key": "current_version",
+          "label": {
+            "ar": "الإصدار الحالي",
+            "en": "Current version"
+          },
+          "type": "text"
+        },
+        {
+          "key": "api_base",
+          "label": {
+            "ar": "رابط الـ API",
+            "en": "API base URL"
+          },
+          "type": "url"
+        },
+        {
+          "key": "server_ip",
+          "label": {
+            "ar": "IP السيرفر",
+            "en": "Server IP"
+          },
+          "type": "text",
+          "secret": true,
+          "placeholder": "203.0.113.10"
+        },
+        {
+          "key": "hosting_provider",
+          "label": {
+            "ar": "مزود الاستضافة",
+            "en": "Hosting provider"
+          },
+          "type": "text",
+          "secret": true
+        },
+        {
+          "key": "host_user",
+          "label": {
+            "ar": "مستخدم السيرفر (root)",
+            "en": "Server user (root)"
+          },
+          "type": "text",
+          "secret": true
+        },
+        {
+          "key": "host_password",
+          "label": {
+            "ar": "كلمة مرور السيرفر",
+            "en": "Server password"
+          },
+          "type": "secret",
+          "secret": true
+        },
+        {
+          "key": "ssh_port",
+          "label": {
+            "ar": "منفذ SSH",
+            "en": "SSH port"
+          },
+          "type": "number",
+          "secret": true,
+          "placeholder": "22"
+        },
+        {
+          "key": "store_account",
+          "label": {
+            "ar": "حساب المتجر (المطور)",
+            "en": "Store developer account"
+          },
+          "type": "text",
+          "secret": true
+        },
+        {
+          "key": "store_password",
+          "label": {
+            "ar": "كلمة مرور حساب المتجر",
+            "en": "Store account password"
+          },
+          "type": "secret",
+          "secret": true
+        },
+        {
+          "key": "keystore_password",
+          "label": {
+            "ar": "كلمة مرور Keystore",
+            "en": "Keystore password"
+          },
+          "type": "secret",
+          "secret": true
+        }
+      ]
+    },
+    {
+      "key": "desktop",
+      "kind": "project",
+      "label": {
+        "ar": "برامج ديسكتوب",
+        "en": "Desktop"
+      },
+      "single": {
+        "ar": "برنامج ديسكتوب",
+        "en": "Desktop app"
+      },
+      "icon": "Monitor",
+      "fields": [
+        {
+          "key": "os",
+          "label": {
+            "ar": "أنظمة التشغيل",
+            "en": "Operating systems"
+          },
+          "type": "multiselect",
+          "public": true,
+          "options": [
+            "Windows",
+            "macOS",
+            "Linux"
+          ]
+        },
+        {
+          "key": "framework",
+          "label": {
+            "ar": "التقنية",
+            "en": "Technology"
+          },
+          "type": "select",
+          "public": true,
+          "options": [
+            "Python / PyQt",
+            "Electron",
+            ".NET",
+            "Tauri",
+            "Java"
+          ]
+        },
+        {
+          "key": "current_version",
+          "label": {
+            "ar": "الإصدار الحالي",
+            "en": "Current version"
+          },
+          "type": "text"
+        },
+        {
+          "key": "installs",
+          "label": {
+            "ar": "عدد الأجهزة المثبت عليها",
+            "en": "Installed seats"
+          },
+          "type": "number"
+        },
+        {
+          "key": "database",
+          "label": {
+            "ar": "قاعدة البيانات",
+            "en": "Database"
+          },
+          "type": "text"
+        },
+        {
+          "key": "license_key",
+          "label": {
+            "ar": "مفتاح الترخيص",
+            "en": "License key"
+          },
+          "type": "secret",
+          "secret": true
+        },
+        {
+          "key": "update_server",
+          "label": {
+            "ar": "سيرفر التحديثات",
+            "en": "Update server"
+          },
+          "type": "url",
+          "secret": true
+        },
+        {
+          "key": "admin_user",
+          "label": {
+            "ar": "مستخدم الأدمن",
+            "en": "Admin user"
+          },
+          "type": "text",
+          "secret": true
+        },
+        {
+          "key": "admin_password",
+          "label": {
+            "ar": "كلمة مرور الأدمن",
+            "en": "Admin password"
+          },
+          "type": "secret",
+          "secret": true
+        }
+      ]
+    },
+    {
+      "key": "erp",
+      "kind": "project",
+      "label": {
+        "ar": "أنظمة و ERP",
+        "en": "Systems & ERP"
+      },
+      "single": {
+        "ar": "نظام / ERP",
+        "en": "System / ERP"
+      },
+      "icon": "Boxes",
+      "fields": [
+        {
+          "key": "platform",
+          "label": {
+            "ar": "المنصة",
+            "en": "Platform"
+          },
+          "type": "select",
+          "public": true,
+          "options": [
+            "Frappe",
+            "ERPNext",
+            "Odoo",
+            "IBM Maximo",
+            {
+              "v": "Django (custom)",
+              "ar": "Django (مخصص)",
+              "en": "Django (custom)"
+            }
+          ]
+        },
+        {
+          "key": "modules",
+          "label": {
+            "ar": "الموديولات",
+            "en": "Modules"
+          },
+          "type": "tags",
+          "public": true,
+          "placeholder": "Accounting, Stock, HR"
+        },
+        {
+          "key": "users_count",
+          "label": {
+            "ar": "عدد المستخدمين",
+            "en": "Users"
+          },
+          "type": "number",
+          "public": true
+        },
+        {
+          "key": "version",
+          "label": {
+            "ar": "الإصدار",
+            "en": "Version"
+          },
+          "type": "text"
+        },
+        {
+          "key": "system_url",
+          "label": {
+            "ar": "رابط النظام",
+            "en": "System URL"
+          },
+          "type": "url"
+        },
+        {
+          "key": "server_ip",
+          "label": {
+            "ar": "IP السيرفر",
+            "en": "Server IP"
+          },
+          "type": "text",
+          "secret": true,
+          "placeholder": "203.0.113.10"
+        },
+        {
+          "key": "hosting_provider",
+          "label": {
+            "ar": "مزود الاستضافة",
+            "en": "Hosting provider"
+          },
+          "type": "text",
+          "secret": true
+        },
+        {
+          "key": "host_user",
+          "label": {
+            "ar": "مستخدم السيرفر (root)",
+            "en": "Server user (root)"
+          },
+          "type": "text",
+          "secret": true
+        },
+        {
+          "key": "host_password",
+          "label": {
+            "ar": "كلمة مرور السيرفر",
+            "en": "Server password"
+          },
+          "type": "secret",
+          "secret": true
+        },
+        {
+          "key": "ssh_port",
+          "label": {
+            "ar": "منفذ SSH",
+            "en": "SSH port"
+          },
+          "type": "number",
+          "secret": true,
+          "placeholder": "22"
+        },
+        {
+          "key": "admin_user",
+          "label": {
+            "ar": "مستخدم Administrator",
+            "en": "Administrator user"
+          },
+          "type": "text",
+          "secret": true
+        },
+        {
+          "key": "admin_password",
+          "label": {
+            "ar": "كلمة مرور Administrator",
+            "en": "Administrator password"
+          },
+          "type": "secret",
+          "secret": true
+        },
+        {
+          "key": "db_password",
+          "label": {
+            "ar": "كلمة مرور قاعدة البيانات",
+            "en": "Database password"
+          },
+          "type": "secret",
+          "secret": true
+        }
+      ]
+    },
+    {
+      "key": "robotics",
+      "kind": "project",
+      "label": {
+        "ar": "ذكاء اصطناعي وروبوتكس",
+        "en": "AI & Robotics"
+      },
+      "single": {
+        "ar": "مشروع AI / روبوتكس",
+        "en": "AI / robotics project"
+      },
+      "icon": "Bot",
+      "fields": [
+        {
+          "key": "domain_area",
+          "label": {
+            "ar": "المجال",
+            "en": "Area"
+          },
+          "type": "select",
+          "public": true,
+          "options": [
+            {
+              "v": "Computer Vision",
+              "ar": "الرؤية الحاسوبية",
+              "en": "Computer Vision"
+            },
+            {
+              "v": "Machine Learning",
+              "ar": "تعلم الآلة",
+              "en": "Machine Learning"
+            },
+            {
+              "v": "IoT",
+              "ar": "إنترنت الأشياء",
+              "en": "IoT"
+            },
+            {
+              "v": "Robotics",
+              "ar": "الروبوتكس",
+              "en": "Robotics"
+            },
+            {
+              "v": "NLP",
+              "ar": "معالجة اللغة",
+              "en": "NLP"
+            },
+            {
+              "v": "Generative AI",
+              "ar": "الذكاء التوليدي",
+              "en": "Generative AI"
+            }
+          ]
+        },
+        {
+          "key": "controller",
+          "label": {
+            "ar": "المتحكم / المعالج",
+            "en": "Controller / board"
+          },
+          "type": "text",
+          "public": true,
+          "placeholder": "Arduino Mega, Raspberry Pi 5, ESP32"
+        },
+        {
+          "key": "components",
+          "label": {
+            "ar": "المكونات",
+            "en": "Components"
+          },
+          "type": "tags",
+          "public": true,
+          "placeholder": "Servo, Ultrasonic, Camera"
+        },
+        {
+          "key": "models",
+          "label": {
+            "ar": "النماذج / المكتبات",
+            "en": "Models / libraries"
+          },
+          "type": "tags",
+          "public": true,
+          "placeholder": "YOLOv8, OpenCV, TensorFlow"
+        },
+        {
+          "key": "firmware_repo",
+          "label": {
+            "ar": "مستودع الكود",
+            "en": "Code repository"
+          },
+          "type": "url"
+        },
+        {
+          "key": "bom_cost",
+          "label": {
+            "ar": "تكلفة المكونات",
+            "en": "Bill of materials cost"
+          },
+          "type": "number"
+        },
+        {
+          "key": "device_password",
+          "label": {
+            "ar": "كلمة مرور الجهاز / Wi-Fi",
+            "en": "Device / Wi-Fi password"
+          },
+          "type": "secret",
+          "secret": true
+        },
+        {
+          "key": "api_key",
+          "label": {
+            "ar": "مفتاح API",
+            "en": "API key"
+          },
+          "type": "secret",
+          "secret": true
+        }
+      ]
+    },
+    {
+      "key": "training",
+      "kind": "training",
+      "label": {
+        "ar": "تدريبات",
+        "en": "Training"
+      },
+      "single": {
+        "ar": "تدريب",
+        "en": "Training"
+      },
+      "icon": "GraduationCap",
+      "fields": [
+        {
+          "key": "track",
+          "label": {
+            "ar": "المسار",
+            "en": "Track"
+          },
+          "type": "select",
+          "public": true,
+          "options": [
+            {
+              "v": "Programming",
+              "ar": "البرمجة",
+              "en": "Programming"
+            },
+            {
+              "v": "Python",
+              "ar": "Python",
+              "en": "Python"
+            },
+            {
+              "v": "Artificial Intelligence",
+              "ar": "الذكاء الاصطناعي",
+              "en": "Artificial Intelligence"
+            },
+            {
+              "v": "Machine Learning",
+              "ar": "تعلم الآلة",
+              "en": "Machine Learning"
+            },
+            {
+              "v": "Data Analysis",
+              "ar": "تحليل البيانات",
+              "en": "Data Analysis"
+            },
+            {
+              "v": "Robotics",
+              "ar": "الروبوتكس",
+              "en": "Robotics"
+            },
+            {
+              "v": "IoT",
+              "ar": "إنترنت الأشياء",
+              "en": "IoT"
+            },
+            {
+              "v": "Web Development",
+              "ar": "تطوير الويب",
+              "en": "Web Development"
+            },
+            {
+              "v": "IBM Maximo",
+              "ar": "IBM Maximo",
+              "en": "IBM Maximo"
+            }
+          ]
+        },
+        {
+          "key": "organization",
+          "label": {
+            "ar": "الجهة",
+            "en": "Organization"
+          },
+          "type": "text",
+          "i18n": true,
+          "public": true
+        },
+        {
+          "key": "city",
+          "label": {
+            "ar": "المدينة / الدولة",
+            "en": "City / country"
+          },
+          "type": "text",
+          "i18n": true,
+          "public": true
+        },
+        {
+          "key": "mode",
+          "label": {
+            "ar": "طريقة التدريب",
+            "en": "Delivery"
+          },
+          "type": "select",
+          "public": true,
+          "options": [
+            {
+              "v": "On-site",
+              "ar": "حضوري",
+              "en": "On-site"
+            },
+            {
+              "v": "Online",
+              "ar": "أونلاين",
+              "en": "Online"
+            },
+            {
+              "v": "Hybrid",
+              "ar": "مدمج",
+              "en": "Hybrid"
+            }
+          ]
+        },
+        {
+          "key": "hours",
+          "label": {
+            "ar": "عدد الساعات",
+            "en": "Hours"
+          },
+          "type": "number",
+          "public": true
+        },
+        {
+          "key": "trainees",
+          "label": {
+            "ar": "عدد المتدربين",
+            "en": "Trainees"
+          },
+          "type": "number",
+          "public": true
+        },
+        {
+          "key": "age_group",
+          "label": {
+            "ar": "الفئة",
+            "en": "Audience"
+          },
+          "type": "select",
+          "public": true,
+          "options": [
+            {
+              "v": "Kids",
+              "ar": "الأطفال",
+              "en": "Kids"
+            },
+            {
+              "v": "School students",
+              "ar": "طلاب المدارس",
+              "en": "School students"
+            },
+            {
+              "v": "University",
+              "ar": "طلاب الجامعات",
+              "en": "University"
+            },
+            {
+              "v": "Graduates",
+              "ar": "الخريجون",
+              "en": "Graduates"
+            },
+            {
+              "v": "Professionals",
+              "ar": "المهنيون",
+              "en": "Professionals"
+            },
+            {
+              "v": "Corporate",
+              "ar": "الشركات",
+              "en": "Corporate"
+            }
+          ]
+        },
+        {
+          "key": "certificate",
+          "label": {
+            "ar": "شهادة معتمدة",
+            "en": "Certificate"
+          },
+          "type": "bool",
+          "public": true
+        },
+        {
+          "key": "topics",
+          "label": {
+            "ar": "المحاور",
+            "en": "Topics"
+          },
+          "type": "tags",
+          "public": true
+        },
+        {
+          "key": "coordinator",
+          "label": {
+            "ar": "منسق الجهة",
+            "en": "Coordinator"
+          },
+          "type": "text"
+        },
+        {
+          "key": "coordinator_phone",
+          "label": {
+            "ar": "هاتف المنسق",
+            "en": "Coordinator phone"
+          },
+          "type": "text"
+        },
+        {
+          "key": "lms_url",
+          "label": {
+            "ar": "رابط منصة التعلم",
+            "en": "LMS URL"
+          },
+          "type": "url",
+          "secret": true
+        },
+        {
+          "key": "lms_password",
+          "label": {
+            "ar": "كلمة مرور المنصة",
+            "en": "LMS password"
+          },
+          "type": "secret",
+          "secret": true
+        }
+      ]
+    }
+  ],
+  "paymentMethods": [
+    {
+      "key": "bank",
+      "ar": "تحويل بنكي",
+      "en": "Bank transfer"
+    },
+    {
+      "key": "cash",
+      "ar": "نقدي",
+      "en": "Cash"
+    },
+    {
+      "key": "instapay",
+      "ar": "InstaPay",
+      "en": "InstaPay"
+    },
+    {
+      "key": "wallet",
+      "ar": "محفظة إلكترونية",
+      "en": "Mobile wallet"
+    },
+    {
+      "key": "card",
+      "ar": "بطاقة",
+      "en": "Card"
+    },
+    {
+      "key": "other",
+      "ar": "أخرى",
+      "en": "Other"
+    }
+  ],
+  "currencies": [
+    "EGP",
+    "SAR",
+    "USD",
+    "AED",
+    "EUR"
+  ]
+}

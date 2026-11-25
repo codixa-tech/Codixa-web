@@ -1,0 +1,51 @@
+# Codixa — Nginx site. setup_server.sh fills in __DOMAIN__, __APP__ and __ADMIN__, then certbot adds HTTPS.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name __DOMAIN__ www.__DOMAIN__;
+
+    root __APP__/dist;
+    index index.html;
+    server_tokens off;
+    client_max_body_size 100m;
+
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+
+    gzip on;
+    gzip_comp_level 5;
+    gzip_min_length 1024;
+    gzip_types text/css application/javascript application/json image/svg+xml text/xml application/xml text/plain;
+
+    # www → bare domain
+    if ($host = www.__DOMAIN__) { return 301 $scheme://__DOMAIN__$request_uri; }
+
+    # Django: API, Claude connector (MCP + OAuth), admin, store pages (server-rendered SEO) and their sitemap
+    location ~ ^/(api/|mcp/?$|oauth/|\.well-known/oauth-|__ADMIN__|store(/|$)|en/store(/|$)|sitemap-store\.xml$) {
+        proxy_pass http://127.0.0.1:__PORT__;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        # Overwrite (don't append) so clients can't fake their IP and dodge login limits.
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_read_timeout 180s;
+        proxy_send_timeout 180s;
+    }
+
+    location /static/ { alias __APP__/backend/staticfiles/; expires 30d; access_log off; }
+    location /media/  { alias __APP__/backend/media/; expires 30d; add_header Cache-Control "public"; access_log off; }
+
+    # Hashed build assets never change
+    location /assets/ { expires 1y; add_header Cache-Control "public, immutable"; access_log off; try_files $uri =404; }
+    location = /sw.js { add_header Cache-Control "no-cache"; try_files $uri =404; }
+    location = /_store.html { internal; }
+
+    # Dashboard is a client-side app
+    location /dashboard { try_files $uri /index.html; }
+
+    # Pre-rendered pages (/, /en, /erpnext, /en/erpnext …); anything else is a real 404 for search engines
+    location / { try_files $uri $uri/index.html =404; }
+    error_page 404 /404.html;
+    location = /404.html { internal; }
+}

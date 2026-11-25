@@ -1,0 +1,69 @@
+{% extends "core/pdf/base.html" %}
+{% block styles %}
+  .ctitle { text-align: center; margin-top: 2mm; }
+  .ctitle h1 { font-size: 18pt; font-weight: 700; }
+  .ctitle p { color: var(--muted); font-size: 8.8pt; }
+  .parties { display: flex; gap: 5mm; margin-top: 5mm; }
+  .party { flex: 1; border: .6pt solid var(--line); border-radius: 2.5mm; padding: 3mm 4mm; background: #fbfdff; }
+  .party h3 { font-size: 9pt; color: var(--blue-d); font-weight: 700; margin-bottom: 1mm; }
+  .party p { font-size: 8.8pt; }
+  .party p span { color: var(--muted); }
+  .preamble { margin-top: 5mm; }
+  .clause { margin-top: 4.2mm; page-break-inside: avoid; break-inside: avoid; }
+  .clause h3 { font-size: 10pt; font-weight: 700; display: flex; gap: 2mm; }
+  .clause h3 .n { color: var(--blue); }
+  .clause p { margin-top: 1mm; text-align: justify; }
+  .clause ul { margin: 1.2mm 0 0; padding-inline-start: 6mm; }
+  .clause li { margin: .6mm 0; }
+  .legal { margin-top: 5mm; font-size: 7.6pt; color: var(--muted); }
+{% endblock %}
+{% block watermark %}{% with stamp_class="stamp--watermark" %}{% include "core/pdf/_stamp.html" %}{% endwith %}{% endblock %}
+{% block content %}
+  <div class="ctitle">
+    <h1>{{ contract.title }}</h1>
+    <p>{{ t.no }} <span class="num">{{ contract.number }}</span> &middot; {{ t.date }} <span class="num">{{ contract.date }}</span></p>
+  </div>
+
+  <p class="preamble">{{ preamble }}</p>
+  <div class="parties">
+    <div class="party">
+      <h3>{{ t.first_party }}</h3>
+      <p><strong>{{ company.name }}</strong></p>
+      <p><span>{{ t.represented_by }}:</span> {{ company.ceo }} — {{ t.ceo }}</p>
+      {% if company.commercial_reg %}<p><span>{{ t.id_number }}:</span> <span class="num">{{ company.commercial_reg }}</span></p>{% endif %}
+      <p><span>{{ t.address }}:</span> {{ company.address }}</p>
+      <p><span>{{ t.phone }}:</span> <span class="num">{{ company.phone }}</span> &middot; <span dir="ltr">{{ company.email }}</span></p>
+    </div>
+    <div class="party">
+      <h3>{{ t.second_party }}</h3>
+      <p><strong>{{ party.company|default:party.name }}</strong></p>
+      {% if party.representative %}<p><span>{{ t.represented_by }}:</span> {{ party.representative }}</p>{% endif %}
+      {% if party.id_number %}<p><span>{{ t.id_number }}:</span> <span class="num">{{ party.id_number }}</span></p>{% endif %}
+      {% if party.address %}<p><span>{{ t.address }}:</span> {{ party.address }}</p>{% endif %}
+      {% if party.phone or party.email %}<p><span>{{ t.phone }}:</span> <span class="num">{{ party.phone|default:"—" }}</span>{% if party.email %} &middot; <span dir="ltr">{{ party.email }}</span>{% endif %}</p>{% endif %}
+    </div>
+  </div>
+  <p class="preamble">{{ t.preamble_end }}</p>
+
+  {% for heading, paragraphs, items in clauses %}
+  <div class="clause">
+    {% if heading == "__payments__" %}
+      <h3><span class="n">{{ t.clause }} {{ forloop.counter }}</span> {{ t.c_value }}</h3>
+      {% for p in paragraphs %}<p>{{ p }}</p>{% endfor %}
+      {% if installments %}
+      <table class="data" style="margin-top:2mm">
+        <thead><tr><th>{{ t.installment }}</th><th>{{ t.percent }}</th><th class="end">{{ t.amount }}</th>{% if installments.0.due %}<th>{{ t.due }}</th>{% endif %}</tr></thead>
+        <tbody>{% for i in installments %}<tr><td>{{ i.label }}</td><td class="num">{{ i.percent }}</td><td class="end num">{{ i.amount }}</td>{% if installments.0.due %}<td class="num">{{ i.due }}</td>{% endif %}</tr>{% endfor %}</tbody>
+      </table>
+      {% endif %}
+    {% else %}
+      <h3><span class="n">{{ t.clause }} {{ forloop.counter }}</span> {{ heading }}</h3>
+      {% for p in paragraphs %}<p>{{ p }}</p>{% endfor %}
+      {% if items %}<ul>{% for i in items %}<li>{{ i }}</li>{% endfor %}</ul>{% endif %}
+    {% endif %}
+  </div>
+  {% endfor %}
+
+  {% with heading_first=t.for_first heading_second=t.for_second %}{% include "core/pdf/_signatures.html" %}{% endwith %}
+  <p class="legal">{{ t.legal_note }}</p>
+{% endblock %}

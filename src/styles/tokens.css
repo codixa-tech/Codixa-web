@@ -1,0 +1,63 @@
+/* Codixa design tokens — from the brand identity (palette + Inter type system). */
+:root {
+  /* Brand */
+  --c-blue: #2563eb;
+  --c-blue-600: #1d4ed8;
+  --c-blue-300: #93b4f8;
+  --c-ink: #0f172a;
+  --c-ink-2: #15203a;
+  --c-ink-3: #1c2a49;
+  --c-cyan: #06b6d4;
+  --c-paper: #f8fafc;
+  --c-white: #ffffff;
+
+  /* Neutrals (slate family, matches the brand's Secondary) */
+  --c-slate-100: #eef2f7;
+  --c-slate-200: #e2e8f0;
+  --c-slate-300: #cbd5e1;
+  --c-slate-400: #94a3b8;
+  --c-slate-500: #64748b;
+  --c-slate-600: #475569;
+
+  /* Status */
+  --c-ok: #10b981;
+  --c-warn: #f59e0b;
+  --c-danger: #ef4444;
+
+  /* Lines */
+  --line-dark: rgba(148, 163, 184, 0.16);
+  --line-light: #e2e8f0;
+
+  /* Type */
+  --font-latin: 'Inter Variable', Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-arabic: 'IBM Plex Sans Arabic', 'Inter Variable', system-ui, sans-serif;
+  --font: var(--font-latin);
+
+  /* Type scale (1.25 modular, from the brand's 12/14/16/20/24/36/48) */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2.25rem;
+  --fs-3xl: clamp(2.25rem, 4.2vw, 3rem);
+  --fs-display: clamp(2.75rem, 7.4vw, 6.25rem);
+
+  /* Space & layout */
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --container: 1240px;
+  --section-y: clamp(4.5rem, 10vw, 8.5rem);
+  --nav-h: 72px;
+
+  /* Radius — the C mark's soft corners for surfaces, the diamond's sharp corner for accents */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+html[lang='ar'] {
+  --font: var(--font-arabic);
+}

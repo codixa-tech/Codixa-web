@@ -1,0 +1,65 @@
+{# Shared project sections for client and internal reports #}
+<p class="kicker">{{ project.category }}</p>
+<h1 class="title">{{ project.title }}</h1>
+{% if internal %}<div class="banner banner--warn">{{ t.confidential }}</div>{% endif %}
+
+<dl class="grid">
+  <div><dt>{{ t.client }}</dt><dd>{% if client %}{{ client.company|default:client.name }}{% else %}{{ t.none }}{% endif %}</dd></div>
+  <div><dt>{{ t.status }}</dt><dd>{{ project.status }}</dd></div>
+  <div><dt>{{ t.progress }}</dt><dd class="num">{{ project.progress }}%</dd></div>
+  <div><dt>{{ t.start }}</dt><dd class="num">{{ project.start }}</dd></div>
+  <div><dt>{{ t.end }}</dt><dd class="num">{{ project.end }}</dd></div>
+  <div><dt>{{ t.issued }}</dt><dd class="num">{{ today }}</dd></div>
+</dl>
+
+{% if project.summary %}
+<h2 class="sec">{{ t.overview }}</h2>
+<p class="lead">{{ project.summary|linebreaksbr }}</p>
+{% endif %}
+
+{% if internal and client %}
+<h2 class="sec">{{ t.contact }}</h2>
+<table class="kv keep">
+  <tr><td>{{ t.client }}</td><td>{{ client.name }}{% if client.company %} — {{ client.company }}{% endif %}</td></tr>
+  {% if client.email %}<tr><td>{{ t.email }}</td><td dir="ltr">{{ client.email }}</td></tr>{% endif %}
+  {% if client.phone %}<tr><td>{{ t.phone }}</td><td class="num">{{ client.phone }}</td></tr>{% endif %}
+  {% if client.country %}<tr><td>{{ t.country }}</td><td>{{ client.country }}</td></tr>{% endif %}
+  {% if client.address %}<tr><td>{{ t.address }}</td><td>{{ client.address }}</td></tr>{% endif %}
+  {% if client.id_number %}<tr><td>{{ t.id_number }}</td><td class="num">{{ client.id_number }}</td></tr>{% endif %}
+</table>
+{% endif %}
+
+{% if details %}
+<h2 class="sec">{{ t.details }}</h2>
+<table class="kv">
+  {% for label, value in details %}<tr><td>{{ label }}</td><td>{{ value }}</td></tr>{% endfor %}
+</table>
+{% endif %}
+
+{% if images %}
+<h2 class="sec">{{ t.gallery }}</h2>
+<div class="gallery keep">{% for src in images %}<img src="{{ src }}" alt="">{% endfor %}</div>
+{% endif %}
+
+{% if has_money %}
+<div class="keep">
+  <h2 class="sec">{{ t.financial }}</h2>
+  <dl class="money">
+    <div><dt>{{ t.total }}</dt><dd class="num">{{ total }}</dd></div>
+    <div class="ok"><dt>{{ t.paid }}</dt><dd class="num">{{ paid }}</dd></div>
+    <div class="due"><dt>{{ t.remaining }}</dt><dd class="num">{{ remaining }}</dd></div>
+  </dl>
+  <div class="bar"><span style="width: {{ paid_pct }}%"></span></div>
+</div>
+{% if payments %}
+<h2 class="sec">{{ t.payments }}</h2>
+<table class="data">
+  <thead><tr><th>{{ t.date }}</th><th>{{ t.method }}</th>{% if internal %}<th>{{ t.reference }}</th><th>{{ t.note }}</th>{% endif %}<th class="end">{{ t.amount }}</th></tr></thead>
+  <tbody>
+  {% for p in payments %}
+    <tr><td class="num">{{ p.date }}</td><td>{{ p.method }}</td>{% if internal %}<td class="num">{{ p.reference|default:"—" }}</td><td>{{ p.note|default:"—" }}</td>{% endif %}<td class="end num">{{ p.amount }}</td></tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}
+{% endif %}

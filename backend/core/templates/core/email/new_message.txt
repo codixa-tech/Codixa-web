@@ -1,0 +1,15 @@
+{% autoescape off %}{% if is_order %}طلب حجز جديد: {{ m.system_title }}{% else %}رسالة جديدة من الموقع{% endif %}
+{{ when }}
+
+الاسم: {{ m.name }}
+{% if m.phone %}الهاتف: {{ m.phone }}
+{% endif %}{% if m.email %}البريد: {{ m.email }}
+{% endif %}{% if m.company %}الشركة: {{ m.company }}
+{% endif %}{% if m.preferred_contact %}يفضّل التواصل عبر: {{ m.preferred_contact }}
+{% endif %}{% if m.service and not is_order %}الخدمة: {{ m.service }}
+{% endif %}
+{{ m.message }}
+
+{% if wa %}واتساب: {{ wa }}
+{% endif %}لوحة التحكم: {{ dashboard }}
+{% endautoescape %}

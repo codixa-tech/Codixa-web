@@ -1,0 +1,228 @@
+.loader {
+  --d: 1; /* duration multiplier */
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  pointer-events: all;
+}
+.loader {
+  --d: 1.05;
+}
+.loader--short {
+  --d: 0.48;
+}
+
+.loader__panel {
+  position: absolute;
+  inset-inline: 0;
+  height: 50.5%;
+  background: var(--c-ink);
+  transition: transform 0.85s var(--ease-in-out);
+}
+.loader__panel--a {
+  top: 0;
+}
+.loader__panel--b {
+  bottom: 0;
+}
+/* faint brand diamond grid on the panels */
+.loader__panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(45deg, transparent 46%, rgba(37, 99, 235, 0.13) 46% 54%, transparent 54%),
+    linear-gradient(-45deg, transparent 46%, rgba(37, 99, 235, 0.13) 46% 54%, transparent 54%);
+  background-size: 36px 36px;
+  mask-image: radial-gradient(ellipse at center, #000 0%, transparent 70%);
+  opacity: 0;
+  animation: ldr-fade calc(1.2s * var(--d)) 0.2s forwards;
+}
+
+.loader__stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1.1rem;
+  transition: transform 0.7s var(--ease-in-out), opacity 0.45s ease;
+}
+
+.loader__mark {
+  width: clamp(92px, 14vw, 132px);
+  height: auto;
+  overflow: visible;
+}
+
+.loader__trace {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 9;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ldr-trace calc(0.95s * var(--d)) var(--ease-in-out) forwards;
+}
+
+/* fill rises from the bottom like a progress bar inside the letterform */
+.loader__fill {
+  fill: #fff;
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: scaleY(0);
+  animation: ldr-fill calc(0.6s * var(--d)) calc(0.75s * var(--d)) var(--ease-out) forwards;
+}
+
+.loader__diamond-wrap {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: ldr-drop calc(0.6s * var(--d)) calc(1.2s * var(--d)) cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+.loader__diamond {
+  fill: var(--c-cyan);
+}
+
+.loader__ping {
+  fill: none;
+  stroke: var(--c-cyan);
+  stroke-width: 6;
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: ldr-ping calc(0.8s * var(--d)) calc(1.62s * var(--d)) ease-out forwards;
+}
+
+.loader__word {
+  display: flex;
+  font-family: var(--font-latin);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3.6vw, 2.4rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  overflow: hidden;
+  padding-block: 0.1em;
+}
+.loader__word span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: ldr-letter calc(0.5s * var(--d)) calc((1.45s + var(--i) * 0.045s) * var(--d)) var(--ease-out) forwards;
+}
+
+.loader__tagline {
+  font-size: var(--fs-sm);
+  color: var(--c-slate-400);
+  opacity: 0;
+  animation: ldr-fade calc(0.5s * var(--d)) calc(1.8s * var(--d)) forwards;
+}
+
+.loader__bar {
+  width: 120px;
+  height: 2px;
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 0.4rem;
+}
+.loader__bar span {
+  display: block;
+  height: 100%;
+  background: var(--c-cyan);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: ldr-bar calc(2.1s * var(--d)) var(--ease-in-out) forwards;
+}
+[dir='rtl'] .loader__bar span {
+  transform-origin: right;
+}
+
+/* exit: content lifts and fades, panels part vertically */
+.loader.is-leaving .loader__stage {
+  opacity: 0;
+  transform: translateY(-24px) scale(0.96);
+}
+.loader.is-leaving .loader__panel--a {
+  transform: translateY(-101%);
+  transition-delay: 0.18s;
+}
+.loader.is-leaving .loader__panel--b {
+  transform: translateY(101%);
+  transition-delay: 0.18s;
+}
+.loader.is-leaving {
+  pointer-events: none;
+}
+
+.loader--reduced * {
+  animation: none !important;
+}
+.loader--reduced .loader__trace {
+  stroke-dashoffset: 0;
+}
+.loader--reduced .loader__fill,
+.loader--reduced .loader__bar span {
+  transform: none;
+}
+.loader--reduced .loader__diamond-wrap,
+.loader--reduced .loader__tagline,
+.loader--reduced .loader__word span {
+  opacity: 1;
+  transform: none;
+}
+.loader--reduced .loader__panel {
+  transition: opacity 0.2s;
+}
+.loader--reduced.is-leaving .loader__panel {
+  transform: none;
+  opacity: 0;
+}
+
+@keyframes ldr-trace {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes ldr-fill {
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes ldr-drop {
+  0% {
+    opacity: 0;
+    transform: translate(60px, -140px) rotate(-180deg) scale(0.4);
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ldr-ping {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.6);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+}
+@keyframes ldr-letter {
+  to {
+    transform: none;
+  }
+}
+@keyframes ldr-fade {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes ldr-bar {
+  to {
+    transform: scaleX(1);
+  }
+}

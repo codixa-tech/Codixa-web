@@ -1,0 +1,14 @@
+{# Company stamp: blue double ring, text around the edge, company and CEO in the centre. #}
+<div class="stamp {{ stamp_class }}">
+  <div class="stamp__ring">
+    {% for l in stamp_ring %}<span style="transform: rotate({{ l.a }}deg)">{{ l.c }}</span>{% endfor %}
+  </div>
+  <div class="stamp__inner">
+    <div class="stamp__stars">&#9733; &#9733; &#9733;</div>
+    <div class="stamp__company">CODIXA</div>
+    <div class="stamp__sub">Technical Solutions</div>
+    <div class="stamp__rule"></div>
+    <div class="stamp__ceo">{{ company.ceo_en|upper }}</div>
+    <div class="stamp__role">Chief Executive Officer</div>
+  </div>
+</div>

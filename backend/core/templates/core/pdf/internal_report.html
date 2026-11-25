@@ -1,0 +1,20 @@
+{% extends "core/pdf/base.html" %}
+{% block content %}
+  {% include "core/pdf/_project_body.html" %}
+
+  {% if contracts %}
+  <h2 class="sec">{{ t.contracts }}</h2>
+  <table class="data keep">
+    <thead><tr><th>{{ t.no }}</th><th>{{ t.date }}</th><th>{{ t.status }}</th><th class="end">{{ t.amount }}</th></tr></thead>
+    <tbody>{% for k in contracts %}<tr><td class="num">{{ k.number }}</td><td class="num">{{ k.date }}</td><td>{{ k.status }}</td><td class="end num">{{ k.value }}</td></tr>{% endfor %}</tbody>
+  </table>
+  {% endif %}
+
+  {% if secrets %}
+  <h2 class="sec">{{ t.access }}</h2>
+  <table class="kv keep">{% for label, value in secrets %}<tr><td>{{ label }}</td><td dir="ltr" class="num">{{ value }}</td></tr>{% endfor %}</table>
+  {% elif secrets_hidden %}
+  <p class="small muted" style="margin-top:5mm">{{ t.access_hidden }}</p>
+  {% endif %}
+  <p class="small muted" style="margin-top:5mm">{{ t.generated }}</p>
+{% endblock %}

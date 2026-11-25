@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>كوديكسا | شركة برمجة وتطوير أنظمة وتطبيقات و ERP في مصر</title>
+    <meta name="description" content="كوديكسا شركة برمجة وتطوير أنظمة ومواقع وتطبيقات، تنفيذ ERPNext، تدريب وتنفيذ IBM Maximo، وكورسات برمجة وذكاء اصطناعي في مصر والسعودية." data-seo />
+    <!--seo-head-->
+    <meta name="theme-color" content="#0F172A" />
+    <meta name="format-detection" content="telephone=no" />
+    <link rel="icon" type="image/png" href="/brand/favicon.png" />
+    <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <script>
+      // Public pages: language comes from the URL (/ = Arabic, /en = English).
+      // Other routes (dashboard, 404): the visitor's saved choice or browser language.
+      (function () {
+        try {
+          var p = location.pathname;
+          var lang;
+          if (p === '/en' || p.indexOf('/en/') === 0) lang = 'en';
+          else if (p.indexOf('/dashboard') === 0) {
+            var saved = localStorage.getItem('codixa.lang');
+            lang = saved || ((navigator.language || 'ar').toLowerCase().indexOf('ar') === 0 ? 'ar' : 'en');
+          } else lang = document.documentElement.lang || 'ar';
+          document.documentElement.lang = lang;
+          document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        } catch (e) {}
+      })();
+    </script>
+    <style>
+      html,body{background:#0F172A;margin:0}
+      /* Boot cover: shows the mark until the app paints; fades out on its own as a safety net. */
+      #boot{position:fixed;inset:0;z-index:2000;display:grid;place-items:center;background:#0F172A;animation:boot-out .4s 6s forwards}
+      #boot svg{width:88px;height:auto}
+      @keyframes boot-out{to{opacity:0;visibility:hidden}}
+      /* Static page content for crawlers and no-JS visitors; React replaces it on load. */
+      .seo-shell{max-width:920px;margin:0 auto;padding:32px 24px 64px;color:#cbd5e1;font:16px/1.75 system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif}
+      .seo-shell a{color:#93c5fd}
+      .seo-shell h1{color:#fff;font-size:2.2rem;line-height:1.2;margin:1.5rem 0 1rem}
+      .seo-shell h2{color:#fff;font-size:1.5rem;margin:2.5rem 0 .75rem}
+      .seo-shell h3{color:#e2e8f0;font-size:1.1rem;margin:1.25rem 0 .25rem}
+      .seo-shell .ss-nav{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
+      .seo-shell .ss-nav nav{display:flex;flex-wrap:wrap;gap:8px 16px}
+      .seo-shell .ss-brand{color:#fff;font-weight:700;font-size:1.4rem;text-decoration:none}
+      .seo-shell .ss-footer{margin-top:3rem;border-top:1px solid #1e293b;padding-top:1.5rem;font-size:.9rem}
+    </style>
+  </head>
+  <body>
+    <div id="boot" aria-hidden="true">
+      <svg viewBox="262 237 481 549"><path fill="#fff" d="M460 245H512C590 245 652 290 652 352V467H612C588 467 568 447 568 423V378C568 350 545 328 512 328H460C395 328 353 375 353 435V588C353 650 395 695 460 695H474C498 695 518 675 518 651V625C518 601 538 581 562 581H608C632 581 652 601 652 625V672C652 735 590 778 512 778H460C355 778 270 693 270 588V435C270 330 355 245 460 245Z"/><path fill="#06B6D4" d="M677 454L735 512L677 570L619 512Z"/></svg>
+    </div>
+    <div id="root"><!--app-shell--></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

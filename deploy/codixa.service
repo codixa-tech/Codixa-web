@@ -1,0 +1,22 @@
+[Unit]
+Description=Codixa API (Gunicorn)
+After=network.target postgresql.service redis-server.service
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=__APP__/backend
+ExecStart=__APP__/backend/.venv/bin/gunicorn codixa.wsgi:application \
+    --bind 127.0.0.1:__PORT__ --workers 3 --threads 2 --timeout 180 \
+    --max-requests 1000 --max-requests-jitter 100 --access-logfile - --error-logfile -
+Restart=always
+RestartSec=3
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ReadWritePaths=__APP__/backend/media
+
+[Install]
+WantedBy=multi-user.target

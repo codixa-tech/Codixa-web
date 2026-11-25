@@ -1,0 +1,10 @@
+{% extends "core/pdf/base.html" %}
+{% block content %}
+  {% include "core/pdf/_project_body.html" %}
+  <div class="keep">
+    <h2 class="sec">{{ t.acceptance_title }}</h2>
+    <p>{{ t.acceptance }}</p>
+    {% include "core/pdf/_signatures.html" %}
+  </div>
+  <p class="small muted" style="margin-top:5mm">{{ t.generated }}</p>
+{% endblock %}
